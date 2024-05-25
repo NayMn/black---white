@@ -1,7 +1,7 @@
 import express from 'express'
 import 'dotenv/config'
 import Jimp from 'jimp'
-import { dirname } from 'path'
+import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { randomUUID } from 'crypto'
 
@@ -12,6 +12,12 @@ console.log(__dirname)
 
 
 app.use(express.static(__dirname + "public"))
+app.use(express.urlencoded({ extended: true }))
+
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + "/public/index.html"))
+})
 
 
 app.get('/image', async (req, res) => {
