@@ -5,13 +5,14 @@ import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { randomUUID } from 'crypto'
 
+
 const app = express()
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-console.log(__dirname)
+const __dirname = dirname(fileURLToPath(import.meta.url));
+console.log(__dirname);
 
 
-app.use(express.static(__dirname + "public"))
+app.use(express.static(path.join()))
 app.use(express.urlencoded({ extended: true }))
 
 
@@ -20,7 +21,15 @@ app.get('/', (req, res) => {
 })
 
 
-app.get('/image', async (req, res) => {
+app.post('/image', async (req, res) => {
+
+    const imageUrl = req.body.imageUrl
+
+    try {
+
+    } catch (error) {
+        res.status(500).send('no se puede procesar la imagen')
+    }
 
     const image = await Jimp.read('https://picsum.photos/400')
     //agregar config a la imagen:
